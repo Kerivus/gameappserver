@@ -20,8 +20,7 @@ const schema = mongoose.Schema({
     genres:{ type: String},
     platform:{ type: String},
     release_dates:{ type: String},
-    image:{ type: String},
-    view:{ type: String}
+    image:{ type: String}
 });
 
 const Game = mongoose.model('Game', schema, 'gameCollection');
