@@ -187,7 +187,7 @@ Game.find({})
 });
 
 app.get('/deletegame', (req, res) => {
-Game.deleteMany({ name: req.query.name })
+Game.deleteMany({ id: req.query.id })
     .then(response => {
         res.status(200).json(response);
     })
