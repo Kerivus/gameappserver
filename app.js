@@ -2,9 +2,10 @@ const express = require('express');
 const app = express();
 const axios = require('axios');
 const Game = require('./Game');
-const path = require('path'); //---heroku---
+const cors = require('cors');
+//const path = require('path'); //---heroku---
 
-const apikey = '1f38bca04a14437b5310f3faa25e64e7';
+const port = process.env.PORT || 2000;
 
 app.use(cors());
 app.use(function(req, res, next) {
@@ -15,6 +16,8 @@ app.use(function(req, res, next) {
   );
   next();
 });
+
+const apikey = '1f38bca04a14437b5310f3faa25e64e7';
 
 app.get('/searchgame', (req,res) =>{
     const name = req.query.name;
