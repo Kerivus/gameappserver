@@ -33,15 +33,16 @@ app.get('/searchgame', (req,res) =>{
         .then(response =>{
             var data =[];
             for (i = 0; i < response.data.length; i++) {
-                var utcSeconds = response.data[i].first_release_date;
-                var d = new Date(0); // The 0 there is the key, which sets the date to the epoch
-                d.setUTCSeconds(utcSeconds);
+                var d = new Date(response.data[0].first_release_date);
+                var month = ["January", "February", "March", "April", "May", "June",
+                "July", "August", "September", "October", "November", "December"][d.getMonth()];
+                var str = d.getDay()+ ' ' + month + ' ' + d.getFullYear();
 
                 data.push({
                     "id" : response.data[i].id,
                     "name": response.data[i].name,
                     "image": response.data[i].cover.url,
-                    "date": d.toString()
+                    "date": str
                 });
             }
             res.status(200).json(data);
@@ -66,14 +67,15 @@ app.get('/getgame', (req, res) => {
             }
         })
         .then(response =>{
-            var utcSeconds = response.data[0].first_release_date;
-            var d = new Date(0); // The 0 there is the key, which sets the date to the epoch
-            d.setUTCSeconds(utcSeconds);
+            var d = new Date(response.data[0].first_release_date);
+            var month = ["January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"][d.getMonth()];
+            var str = d.getDay()+ ' ' + month + ' ' + d.getFullYear();
 
             game.id = response.data[0].id;
             game.name = response.data[0].name;
             game.summary = response.data[0].summary;
-            game.release_dates = d;
+            game.release_dates = str;
             game.image = response.data[0].cover.url;
             platformIndex = response.data[0].platforms;
             genresIndex = response.data[0].genres;
