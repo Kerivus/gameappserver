@@ -2,8 +2,19 @@ const express = require('express');
 const app = express();
 const axios = require('axios');
 const Game = require('./Game');
+const path = require('path'); //---heroku---
 
 const apikey = '1f38bca04a14437b5310f3faa25e64e7';
+
+app.use(cors());
+app.use(function(req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header(
+    'Access-Control-Allow-Headers',
+    'Origin, X-Requested-With, Content-Type, Accept'
+  );
+  next();
+});
 
 app.get('/searchgame', (req,res) =>{
     const name = req.query.name;
@@ -182,6 +193,6 @@ Game.deleteMany({ name: req.query.name })
     });
 });
 
-app.listen(5000, () => {
-    console.log('server listening on port 5000');
-});
+app.listen(port, () => {
+    console.log(`server listening on port ${port}`);
+  });
